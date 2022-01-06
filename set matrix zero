@@ -1,0 +1,47 @@
+Given an m x n integer matrix matrix, if an element is 0, set its entire row and column to 0's, and return the matrix.
+
+You must do it in place.
+
+ 
+
+Example 1:
+
+
+Input: matrix = [[1,1,1],[1,0,1],[1,1,1]]
+Output: [[1,0,1],[0,0,0],[1,0,1]]
+
+class Solution {
+public:
+    void solve(vector<vector<int>>& matrix, int nm, int i, int j, bool mat[200][200]){
+    int l,h;
+    for(l=0;l<matrix[0].size();l++) {
+    matrix[i][l]=0;   
+    mat[i][l]=true;    
+    }   
+    for(h=0;h<nm;h++){
+    matrix[h][j]=0;    
+    mat[h][j]=true;    
+    }    
+    }
+    void setZeroes(vector<vector<int>>& matrix) {
+        int nm = matrix.size();
+        int gh = matrix[0].size();
+        bool mat[200][200]={false};
+        for(int i=0;i<nm;i++){
+            for(int j=0;j<matrix[0].size();j++)
+            {
+                if(matrix[i][j]==0 && mat[i][j]==false)
+                {
+                    solve(matrix,nm,i,j, mat);
+                    
+                }
+                else{
+                    
+                    
+                }
+              //  mat[i][j]=true;
+            }
+            
+        }
+    }
+};
