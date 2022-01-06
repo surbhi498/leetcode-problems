@@ -9,18 +9,22 @@ Example 1:
 
 Input: matrix = [[1,1,1],[1,0,1],[1,1,1]]
 Output: [[1,0,1],[0,0,0],[1,0,1]]
-
 class Solution {
 public:
     void solve(vector<vector<int>>& matrix, int nm, int i, int j, bool mat[200][200]){
     int l,h;
     for(l=0;l<matrix[0].size();l++) {
+    if(matrix[i][l]!=0){    
     matrix[i][l]=0;   
     mat[i][l]=true;    
+    }    
+        
     }   
     for(h=0;h<nm;h++){
+    if(matrix[h][j]!=0){    
     matrix[h][j]=0;    
-    mat[h][j]=true;    
+    mat[h][j]=true; 
+    }    
     }    
     }
     void setZeroes(vector<vector<int>>& matrix) {
@@ -45,3 +49,4 @@ public:
         }
     }
 };
+
