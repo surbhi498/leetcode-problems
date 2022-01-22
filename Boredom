@@ -1,0 +1,71 @@
+Problem Statement
+Gary is bored and wants to play an interesting but tough game. So he figured out a new board game called "destroy the neighbours". In this game, there are N integers on a board. In one move, he can pick any integer x from the board, and then all the integers with value x + 1 or x - 1 get destroyed. This move will give him x points.
+He plays the game until the board becomes empty. But as he wants to show this game to his friend Steven, he wants to learn techniques to maximize the points to show off. Can you help Gary in finding out the maximum points he receives from the game?
+Input Format:
+The first line of input contains an integer ‘T’, denoting the number of test cases. Then each test case follows.
+
+The first line of each test case contains the Integer ‘N’ denoting the number of elements in the array.
+
+The second and the last line of each test case contains ‘N’ single space-separated integers representing the elements of the array.
+Output Format:
+For each test case, print a single integer ‘X’, denoting the maximum points he receives from the game.
+
+Output of each test case will be printed on a separate line.
+Note:
+You do not need to print anything, it has already been taken care of. Just implement the given function.
+Constraints:
+1 <= T <= 5
+1 <= N <= 10 ^ 5
+1 <= arr[i] <= 10 ^ 6
+
+Time Limit: 1 sec.
+Sample Input 1:
+2
+5
+1 2 3 4 5
+6
+1 3 3 2 5 4
+Sample Output 1:
+9
+12
+Explanation For Sample Input 1:
+For test case 1, The maximum number of points he can receive is 9 by selecting 1, 3 and 5
+For test case 2, The maximum number of points he can receive is 12 by selecting 1, 3, 3 and 5.
+Sample Input 2:
+2
+9
+3 9 3 8 8 7 9 5 10 
+9
+5 1 6 10 1 6 3 7 5 
+Sample Output 2:
+37
+32
+#include <bits/stdc++.h>
+
+
+int maximumPoints(int n, vector<int> & arr)
+{
+    // Write your code here.
+    int max1 = INT_MIN;
+		for (int i = 0; i < n; i++) {
+			
+			if (arr[i] > max1) {
+				max1 = arr[i];
+			}
+		}
+		vector<int> b(max1 + 1, 0);
+		for (int i = 0; i < n; i++)
+		{
+			b[arr[i]]++;
+
+		}
+		int* dp = new int[max1 + 1];
+		dp[0] = 0;
+		dp[1] = b[1];
+		for (int i = 2; i <= max1; i++) {
+			dp[i] = max(dp[i - 1],  dp[i - 2] + i * b[i]);
+		}
+		//sort(a.begin(), a.end());
+		//cout << a[n - 1] - a[0] << endl;
+		return dp[max1];
+	}
