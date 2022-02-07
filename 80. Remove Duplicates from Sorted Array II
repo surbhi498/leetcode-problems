@@ -83,3 +83,27 @@ public:
         return n;
     }
 };
+\\Constant Space
+#include<bits/stdc++.h>
+class Solution {
+public:
+vector b;
+int removeDuplicates(vector& nums) {
+int n = nums.size();
+int i=0;
+int p=0;
+while(i<(n)){
+int count=1;
+int j=i+1;
+while(j<n && nums[i]==nums[j]){
+count++;
+j++;
+}
+for(int i=0;i<min(count,2);i++){
+nums[p++]=nums[j-1];
+}
+i=j;
+}
+return p;
+}
+};
