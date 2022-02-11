@@ -1,0 +1,63 @@
+796. Rotate String
+Easy
+
+1658
+
+79
+
+Add to List
+
+Share
+Given two strings s and goal, return true if and only if s can become goal after some number of shifts on s.
+
+A shift on s consists of moving the leftmost character of s to the rightmost position.
+
+For example, if s = "abcde", then it will be "bcdea" after one shift.
+ 
+
+Example 1:
+
+Input: s = "abcde", goal = "cdeab"
+Output: true
+Example 2:
+
+Input: s = "abcde", goal = "abced"
+Output: false
+class Solution {
+public:
+    bool rotateString(string s, string goal) {
+       int len1 = s.length(), len2 = goal.length();
+	if (len1 != len2)
+		return false;
+	int n = s.length();
+	string str;
+	int gh = 0;
+	if ((s.compare(goal)) == 0)
+		return true;
+	str = s.substr(1, n - 1);
+
+	//string temp = s.substr(0, 1);
+    char temp =s[0];    
+	str += temp;
+	//cout << str << endl;
+	for (int i = 1; i < n; i++) {
+
+		int res = str.compare(goal);
+		if (res == 0)
+		{
+			//cout << "yes" << endl;
+			gh = 1;
+			break;
+		}
+		temp=str[0];
+		str = str.substr(1, n - 1);
+
+		str += temp;
+		//cout << str << endl;
+	}
+	if (gh == 1)
+		return true;
+	else
+		return false; 
+    }
+};
