@@ -1,0 +1,77 @@
+567. Permutation in String
+Medium
+
+5078
+
+133
+
+Add to List
+
+Share
+Given two strings s1 and s2, return true if s2 contains a permutation of s1, or false otherwise.
+
+In other words, return true if one of s1's permutations is the substring of s2.
+
+ 
+
+Example 1:
+
+Input: s1 = "ab", s2 = "eidbaooo"
+Output: true
+Explanation: s2 contains one permutation of s1 ("ba").
+Example 2:
+
+Input: s1 = "ab", s2 = "eidboaoo"
+Output: false
+ 
+
+Constraints:
+
+1 <= s1.length, s2.length <= 104
+s1 and s2 consist of lowercase English letters.
+class Solution {
+public:
+    
+    bool checkInclusion(string s1, string s2) {
+     int n = s1.size();
+     int n2= s2.size(); 
+     vector<int> yu; 
+     string str="";    
+     map<int,int> mp;
+     int gh;   
+    for(int i=0;i<n;i++){
+    mp[s1[i]]++;    
+    } 
+    int  count = mp.size();    
+    for(int i=0;i<n2;i++)
+    {
+     if(mp.find(s2[i]) != mp.end()){
+    // str+=s2[i];
+    yu.push_back(i);     
+     count--;    
+     }   
+    }
+    if(count != 0)
+    return false;
+    else{
+    sort(yu.begin(),yu.end());
+    int len = abs(yu[n-1]-yu[0]+1); 
+    if(len==n){
+    gh=1;    
+    } 
+    else {
+   // gh=0;
+    str = s1.substr(yu[0],len);
+   // int freq[26]{0};
+    for(int i=0;i<str.length;i++){
+    if(mp.find(str[i]) == mp.end()){
+    gh=0;    
+    }    
+    }    
+    }
+    if(gh==1)
+    return true;
+    else
+    return false;    
+    }    
+};
