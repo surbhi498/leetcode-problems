@@ -1,0 +1,283 @@
+Roy and Coin Boxes
+Send Feedback
+Roy has N coin boxes numbered from 1 to N.
+Every day he selects two indices [L,R] and adds 1 coin to each coin box starting from L to R (both inclusive).
+He does this for M number of days.
+After M days, Roy has a query: How many coin boxes have at least X coins.
+He has Q such queries.
+Input
+First line contains N - number of coin boxes.
+Second line contains M - number of days. Each of the next M lines consists of two space separated integers L and R. Followed by integer Q - number of queries.
+Each of next Q lines contain a single integer X.a
+Output
+For each query output the result in a new line.
+Constraints
+1 ≤ N ≤ 1000000
+
+1 ≤ M ≤ 1000000
+
+1 ≤ L ≤ R ≤ N
+
+1 ≤ Q ≤ 1000000
+
+1 ≤ X ≤ N
+Sample Input
+7
+4
+1 3
+2 5
+1 2
+5 6
+4
+1
+7
+4
+2
+Sample Output
+6
+0
+0
+4
+
+
+Code Pair
+
+C++ (g++ 5.4)
+1
+#include <bits/stdc++.h>
+2
+using namespace std;
+3
+#include <vector> 
+4
+void count(vector<vector<int>> vec,int n,int fg[],int q){
+5
+int* start = new int[n+1]();
+6
+int* end = new int[n+1]();
+7
+for(int i=0;i<(vec.size());i++){
+8
+​
+9
+start[vec[i][0]]++;
+10
+end[vec[i][1]]++;
+11
+​
+12
+}
+13
+int* hj = new int[n+1]();
+14
+int* vb = new int[n+1]();
+15
+int* th=new int[n+1]();
+16
+hj[0]=0;
+17
+​
+18
+for(int g=1;g<=n;g++){
+19
+hj[g] = start[g]-end[g-1]+hj[g-1];
+20
+}
+21
+for(int i=1;i<=n;i++){
+22
+vb[hj[i]]++;
+23
+    
+24
+}
+25
+​
+26
+for(int j=n-1;j>=0;j--)
+27
+{
+28
+    
+29
+vb[j] = vb[j] + vb[j+1];
+30
+    
+31
+}    
+32
+​
+33
+for(int h=0;h<q;h++){
+34
+    
+35
+cout<<vb[fg[h]]<<endl;
+36
+    
+37
+}
+38
+​
+39
+    
+40
+}
+41
+int main()
+42
+{
+43
+    int n;
+44
+    
+45
+    cin>>n;
+46
+    int m;
+47
+    cin>>m;
+48
+   vector<vector<int>> vec(m, vector<int>(2 ,0));
+49
+     for (int i = 0; i < m;i++)
+50
+    {
+51
+        for (int j = 0; j < 2;j++)
+52
+        {
+53
+            cin>>vec[i][j];
+54
+        }    
+55
+       
+56
+    }
+57
+  
+58
+    int q;
+59
+    cin>>q;
+60
+    int fg[q];
+61
+    for(int i=0;i<q;i++){
+62
+    cin>>fg[i];
+63
+    }
+64
+​
+65
+     count(vec,n,fg,q);
+66
+    return 0;
+67
+}
+68
+​
+69
+​
+70
+​
+71
+​
+72
+​
+73
+​
+74
+​
+75
+​
+76
+​
+
+CUSTOM INPUT
+
+
+SUBMIT SOLUTION
+
+
+PREVIOUS
+
+
+NEXT
+#include <bits/stdc++.h>
+using namespace std;
+#include <vector> 
+void count(vector<vector<int>> vec,int n,int fg[],int q){
+int* start = new int[n+1]();
+int* end = new int[n+1]();
+for(int i=0;i<(vec.size());i++){
+
+start[vec[i][0]]++;
+end[vec[i][1]]++;
+
+}
+int* hj = new int[n+1]();
+int* vb = new int[n+1]();
+int* th=new int[n+1]();
+hj[0]=0;
+
+for(int g=1;g<=n;g++){
+hj[g] = start[g]-end[g-1]+hj[g-1];
+}
+for(int i=1;i<=n;i++){
+vb[hj[i]]++;
+    
+}
+
+for(int j=n-1;j>=0;j--)
+{
+    
+vb[j] = vb[j] + vb[j+1];
+    
+}    
+
+for(int h=0;h<q;h++){
+    
+cout<<vb[fg[h]]<<endl;
+    
+}
+
+    
+}
+int main()
+{
+    int n;
+    
+    cin>>n;
+    int m;
+    cin>>m;
+   vector<vector<int>> vec(m, vector<int>(2 ,0));
+     for (int i = 0; i < m;i++)
+    {
+        for (int j = 0; j < 2;j++)
+        {
+            cin>>vec[i][j];
+        }    
+       
+    }
+  
+    int q;
+    cin>>q;
+    int fg[q];
+    for(int i=0;i<q;i++){
+    cin>>fg[i];
+    }
+
+     count(vec,n,fg,q);
+    return 0;
+}
+
+
+
+
+
+
+
+
