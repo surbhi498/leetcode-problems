@@ -1,0 +1,76 @@
+84. Largest Rectangle in Histogram
+Hard
+
+9073
+
+136
+
+Add to List
+
+Share
+Given an array of integers heights representing the histogram's bar height where the width of each bar is 1, return the area of the largest rectangle in the histogram.
+
+ 
+
+Example 1:
+
+
+Input: heights = [2,1,5,6,2,3]
+Output: 10
+Explanation: The above is a histogram where width of each bar is 1.
+The largest rectangle is shown in the red area, which has an area = 10 units.
+Example 2:
+
+
+Input: heights = [2,4]
+Output: 4
+ 
+
+Constraints:
+
+1 <= heights.length <= 105
+0 <= heights[i] <= 104
+class Solution {
+public:
+    int largestRectangleArea(vector<int>& heights) {
+      int n = heights.size();
+        vector<int> lefttoright(n);
+        vector<int> righttoleft(n);
+        stack<int> st1,st2;
+        st1.push(-1);
+        st2.push(-1);
+        for(int i=0;i<n;i++){
+        int curr = heights[i];
+        while(st1.top() != -1 && heights[st1.top()]>=curr) {
+        st1.pop();
+        }     
+       if(st1.top()==-1)
+       lefttoright[i]=0;
+       else    
+       lefttoright[i]=st1.top()+1;
+       st1.push(i);     
+}
+ for(int i=n-1;i>=0;i--){
+        int curr = heights[i];
+        while(st2.top() != -1 && heights[st2.top()]>=curr) {
+        st2.pop();
+        }      
+       if(st2.top()==-1)
+       righttoleft[i]=n-1;
+       else    
+       righttoleft[i]=st2.top()-1;
+       st2.push(i);     
+}
+   int area=0;
+   int max1=INT_MIN;     
+   for(int i=0;i<n;i++){
+    int hj = heights[i];
+      
+    int width = abs(righttoleft[i]-lefttoright[i]+1);
+    int area = hj*width;
+    max1 = max(area, max1);   
+       
+   }
+   return max1; 
+        }
+};
