@@ -59,3 +59,39 @@ public:
         return curr;
     }
 };
+// Order(N) Solution
+class Solution {
+public:
+    ListNode* rotateRight(ListNode* head, int k) {
+      ListNode* temp = head;
+      ListNode* temp1=head;
+      ListNode* temp2 = head; 
+      ListNode* prev;  
+      int count=0;  
+      while(temp){
+        count++;
+        prev=temp;  
+        temp=temp->next;  
+      } 
+       if(count<=1 || k%count==0){
+       return head;    
+       } 
+       k=k%count;
+        
+        int gh= count-k-1;
+        for(int i=1;i<=gh;i++)
+        {
+         temp1=temp1->next;   
+            
+        }  
+        for(int i=1;i<=(count-k);i++)
+        {
+            temp2=temp2->next;
+        } 
+        temp1->next=NULL;
+        prev->next=head;
+        head=temp2;
+        
+       return head; 
+    }
+};
