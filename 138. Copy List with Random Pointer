@@ -1,0 +1,17 @@
+ /*    if(head==NULL) return NULL;
+        map<Node*, Node*> mp;
+        Node* curr=head;
+        while(curr!= NULL)
+        {
+            
+            mp.insert(curr, new Node(curr->val));
+            curr=curr->next;
+        } 
+        Node* res = new Node(-1);
+        for(Node key : mp){
+         res = mp[key];   
+         res->next = mp[key->next];
+         res->random = mp[key->random];   
+        }
+       return mp[head]; 
+    }*/
