@@ -1,0 +1,106 @@
+1007. Minimum Domino Rotations For Equal Row
+Medium
+
+2391
+
+236
+
+Add to List
+
+Share
+In a row of dominoes, tops[i] and bottoms[i] represent the top and bottom halves of the ith domino. (A domino is a tile with two numbers from 1 to 6 - one on each half of the tile.)
+
+We may rotate the ith domino, so that tops[i] and bottoms[i] swap values.
+
+Return the minimum number of rotations so that all the values in tops are the same, or all the values in bottoms are the same.
+
+If it cannot be done, return -1.
+
+ 
+
+Example 1:
+
+
+Input: tops = [2,1,2,4,2,2], bottoms = [5,2,6,2,3,2]
+Output: 2
+Explanation: 
+The first figure represents the dominoes as given by tops and bottoms: before we do any rotations.
+If we rotate the second and fourth dominoes, we can make every value in the top row equal to 2, as indicated by the second figure.
+Example 2:
+
+Input: tops = [3,5,1,2,3], bottoms = [3,6,3,3,4]
+Output: -1
+Explanation: 
+In this case, it is not possible to rotate the dominoes to make one row of values equal.
+ 
+
+Constraints:
+
+2 <= tops.length <= 2 * 104
+bottoms.length == tops.length
+1 <= tops[i], bottoms[i] <= 6
+
+class Solution {
+public:
+    int minDominoRotations(vector<int>& tops, vector<int>& bottoms) {
+        int n = tops.size();
+        int m = bottoms.size();
+        map<int,int> mp;
+        map<int,int> mp1;
+        for(int i=0;i<n;i++){
+        mp[tops[i]]++;
+        mp1[bottoms[i]]++;    
+        }
+        int max=INT_MIN;
+        int x;
+        for(auto y : mp){
+        if(y.second>max){
+        max=y.second;
+        x=y.first;    
+            
+        }    
+            
+        }
+        int max1 = INT_MIN;
+        int x1;
+        for(auto c : mp1){
+        if(c.second>max1){
+        max1=c.second;
+        x1=c.first;    
+            
+        }    
+            
+        }
+        int count=0;
+        for(int j=0;j<n;j++){
+        if(tops[j] != x && bottoms[j]==x)    
+         count++;
+        if(tops[j] != x && bottoms[j] != x){
+        count=-1;
+        break;    
+        }    
+        }
+        int count1=0;
+        for(int j=0;j<n;j++){
+        if(bottoms[j] != x1 && tops[j]==x1)    
+         count1++;
+        if(bottoms[j] != x1 && tops[j] != x1){
+        count1=-1;
+        break;    
+        }    
+        }
+        int ans;
+        if(count==-1  && count1==-1)
+        ans=-1;
+        else if(count==-1 && count1>=0)
+        ans=count1;
+        else if(count1==-1 && count>=0)
+        ans = count;    
+        else
+        {
+            ans = min(count,count1);
+        } 
+        return ans;
+        
+    }
+};
