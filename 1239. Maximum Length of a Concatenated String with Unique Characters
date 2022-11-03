@@ -1,0 +1,122 @@
+1239. Maximum Length of a Concatenated String with Unique Characters
+Medium
+3.2K
+225
+Companies
+You are given an array of strings arr. A string s is formed by the concatenation of a subsequence of arr that has unique characters.
+
+Return the maximum possible length of s.
+
+A subsequence is an array that can be derived from another array by deleting some or no elements without changing the order of the remaining elements.
+
+ 
+
+Example 1:
+
+Input: arr = ["un","iq","ue"]
+Output: 4
+Explanation: All the valid concatenations are:
+- ""
+- "un"
+- "iq"
+- "ue"
+- "uniq" ("un" + "iq")
+- "ique" ("iq" + "ue")
+Maximum length is 4.
+Example 2:
+
+Input: arr = ["cha","r","act","ers"]
+Output: 6
+Explanation: Possible longest valid concatenations are "chaers" ("cha" + "ers") and "acters" ("act" + "ers").
+Example 3:
+
+Input: arr = ["abcdefghijklmnopqrstuvwxyz"]
+Output: 26
+Explanation: The only string in arr has all 26 characters.
+ 
+
+Constraints:
+
+1 <= arr.length <= 16
+1 <= arr[i].length <= 26
+arr[i] contains only lowercase English letters.
+
+
+//Backtracking Required
+class Solution {
+public:
+    int maxLength(vector<string>& arr) {
+        int n = arr.size();
+        if(n==1)
+        return arr[0].size();
+        string bn;
+        map<char,int> mp;
+        map<char,int> mp1;
+        int max1 = 0;
+        for(int i=0;i<n;i++)
+        {
+         mp.clear();   
+         bn = arr[i];
+         int flag1=0;
+         for(int i=0;i<bn.size();i++)
+         {
+             if(mp.find(bn[i]) != mp.end())
+             {
+                 flag1=1;
+                 break;
+             }
+             else
+             mp[bn[i]]++;
+         }
+         if(flag1==1)
+         continue;
+        for(int j=i+1;j<n;j++)
+        {
+      //  string sur = bn;    
+        mp1.clear();    
+        string gh = arr[j];
+        int flag=0;
+        int flag2=0;
+        for(int v =0;v<gh.size();v++)
+        {
+            if(mp1.find(gh[v]) != mp1.end())
+             {
+                 flag2=1;
+                 break;
+             }
+             else
+             mp1[gh[v]]++;
+             if(flag2 != 1){
+            if(mp.find(gh[v]) != mp.end())
+            {
+                flag=1;
+                break;
+            }
+             }
+        }    
+        if(flag==1){
+        if(max1<(bn.size()))
+        max1=bn.size();
+        continue;
+
+        }
+        bn += arr[j];
+        for(int k=0;k<gh.size();k++)
+        {
+
+        cout<<"hi"<<endl;
+        mp[gh[k]]++;
+
+        }
+        int bn1 = size(bn);
+        if(max1<bn1)
+        {
+            max1=bn1;
+            cout<<bn<<endl;
+        }
+      //  bn.pop_back();
+        }
+        }
+        return max1;
+    }
+};
