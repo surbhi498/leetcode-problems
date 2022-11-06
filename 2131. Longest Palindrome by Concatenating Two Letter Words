@@ -1,0 +1,122 @@
+You are given an array of strings words. Each element of words consists of two lowercase English letters.
+
+Create the longest possible palindrome by selecting some elements from words and concatenating them in any order. Each element can be selected at most once.
+
+Return the length of the longest palindrome that you can create. If it is impossible to create any palindrome, return 0.
+
+A palindrome is a string that reads the same forward and backward.
+
+ 
+
+Example 1:
+
+Input: words = ["lc","cl","gg"]
+Output: 6
+Explanation: One longest palindrome is "lc" + "gg" + "cl" = "lcggcl", of length 6.
+Note that "clgglc" is another longest palindrome that can be created.
+Example 2:
+
+Input: words = ["ab","ty","yt","lc","cl","ab"]
+Output: 8
+Explanation: One longest palindrome is "ty" + "lc" + "cl" + "yt" = "tylcclyt", of length 8.
+Note that "lcyttycl" is another longest palindrome that can be created.
+Example 3:
+
+Input: words = ["cc","ll","xx"]
+Output: 2
+Explanation: One longest palindrome is "cc", of length 2.
+Note that "ll" is another longest palindrome that can be created, and so is "xx".
+ 
+
+Constraints:
+
+1 <= words.length <= 105
+words[i].length == 2
+words[i] consists of lowercase English letters.
+// Map frequency zero of key element does not essentailly mean it is deleted from the map:
+class Solution {
+public: bool palin(string fg)
+   {
+   int n = fg.size();
+    int l = 0;
+    int h = fg.size() - 1;
+ 
+    // Keep comparing characters
+    // while they are same
+    while (h > l) {
+        if (fg[l++] != fg[h--]) {
+            
+            return 0;
+            // will return from here
+        }
+    }
+        return true;
+}
+int longestPalindrome(vector<string>& words) {
+    int n = words.size();
+    map<string,int> mp;
+    int x=0;
+    int count=0;
+    for(int i=0;i<n;i++){
+        mp[words[i]]++;
+    }
+    for(auto bn : words){
+        // string cv = bn.first;
+        // string xc = bn.first;
+        string cv = bn;
+        string xc = bn;
+     
+     if(palin(cv))continue;
+   
+    reverse(cv.begin(),cv.end());
+    if(mp[cv]>0 && mp[xc]>0 && mp.find(cv) != mp.end()){
+    x=x+4;
+    cout<<x<<endl;
+    mp[xc]--;
+    mp[cv]--;
+    if(mp[xc]==0)
+   {
+       mp.erase(xc);
+   }
+   if(mp[cv]==0)
+   {
+   mp.erase(cv);
+
+   }
+    }
+    }
+    cout<<x<<endl;
+  /*  int lxr=min(mp[cv],mp[xc]);
+        if(lxr>0){
+            mp[cv]-=lxr;
+            mp[xc]-=lxr;
+            x=x+4*lxr; 
+        }
+
+    }*/
+
+    cout<<x<<endl;
+     for(auto i:mp){ 
+         int xr=i.second;  
+         string ts=i.first;
+        if(xr>0 && ts[0]==ts[1]){
+           if((xr) % 2 ==0)x = x + 2*(i.second);
+            else{
+                    count++;    
+                    x = x + 2*(i.second-1);
+                }
+        }
+      else{
+          cout<<ts<<endl;
+      }
+           
+     }
+    
+     if(count >0) x = x +2;
+    return x;
+    }
+};
+
+
+
+
